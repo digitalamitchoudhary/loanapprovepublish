@@ -143,7 +143,8 @@ const startServer = async () => {
   }
 };
 await verifyEmailService();
-
+console.log("EMAIL_USER:", process.env.EMAIL_USER);
+console.log("EMAIL_PASSWORD:", process.env.EMAIL_PASSWORD);
 startServer();
 
 // Graceful shutdown
