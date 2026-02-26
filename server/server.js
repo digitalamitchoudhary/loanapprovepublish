@@ -24,7 +24,7 @@ app.use(helmet());
 
  // CORS setup
 app.use(cors({
-  origin: [process.env.CLIENT_URL, 'https://loanapprovepublish.vercel.app'],
+  origin: [process.env.CLIENT_URL || "http://localhost:3000", 'https://loanapprovepublish-5x7t.vercel.app'],
   methods: ["GET","POST","PUT","DELETE","OPTIONS"],
   credentials: true
 }));
@@ -32,8 +32,8 @@ app.use(cors({
 // Handle OPTIONS preflight globally
 app.options('*', cors({
   origin: [
-    process.env.CLIENT_URL ,
-    "https://loanapprovepublish.vercel.app",
+    process.env.CLIENT_URL || "http://localhost:3000",
+    "https://loanapprovepublish-5x7t.vercel.app",
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
