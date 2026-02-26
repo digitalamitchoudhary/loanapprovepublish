@@ -44,10 +44,10 @@ export default function Navigation() {
               Contact
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-secondary transition-all duration-300 group-hover:w-full"></span>
             </Link>
-            {/* <Link to="/admin" className="text-brand-text-secondary font-medium transition-colors duration-200 hover:text-brand-primary relative group">
+            <Link to="/admin" className="text-brand-text-secondary font-medium transition-colors duration-200 hover:text-brand-primary relative group">
               Admin
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-secondary transition-all duration-300 group-hover:w-full"></span>
-            </Link> */}
+            </Link>
           </div>
 
           <Link to="/apply" className="hidden md:block px-7 py-2.5 bg-brand-secondary text-white rounded-lg font-semibold transition-all duration-200 hover:bg-brand-secondary-dark shadow-sm hover:shadow-md transform hover:scale-105">
