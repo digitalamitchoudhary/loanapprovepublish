@@ -1,10 +1,7 @@
 import { verifyEmailService } from "./utils/emailService.js";
-
 import dotenv from 'dotenv';
-
 dotenv.config();
 import express from 'express';
-
 import helmet from 'helmet';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
@@ -13,55 +10,61 @@ import { errorHandler } from './middleware/errorHandler.js';
 import contactRoutes from './routes/contact.js';
 import applicationRoutes from './routes/application.js';
 
-
 const app = express();
 
 // ============================================
 // SECURITY MIDDLEWARE
 // ============================================
-// Helmet for security headers
 app.use(helmet());
 
-// CORS configuration
-app.use(
-  cors({
-    origin: 
-     [
-process.env.CLIENT_URL || 'http://localhost:3000',
-    "https://loanapprovepublish.vercel.app",
-  ],
-methods: ["GET", "POST", "PUT", "DELETE","OPTIONS"],
-    credentials: true,    optionsSuccessStatus: 200,
-  })
-);
+// ✅ GLOBAL CORS MIDDLEWARE (change 1: single, proper handler)
+const allowedOrigins = [
+  process.env.CLIENT_URL || 'http://localhost:3000',
+  "https://loanapprovepublish.vercel.app",
+];
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
 
-// ✅ VERY IMPORTANT (Vercel fix)
+  // OPTIONS preflight
+  if (req.method === 'OPTIONS') return res.sendStatus(200);
+
+  next();
+});
+
+// ✅ VERY IMPORTANT: Vercel fix (change 2)
 app.set("trust proxy", 1);
 
-
-// Rate limiting
+// ============================================
+// RATE LIMITING
+// ============================================
 const limiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 15 minutes
-  max: 1000, // limit each IP to 100 requests per windowMs
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 1000,
   message: 'Too many requests from this IP, please try again later.',
 });
 
 const contactLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 20, // limit each IP to 5 contact submissions per hour
+  max: 20,
   message: 'Too many contact submissions, please try again later.',
 });
 
 const applicationLimiter = rateLimit({
   windowMs: 24 * 60 * 60 * 1000, // 24 hours
-  max: 20, // limit each IP to 3 applications per day
+  max: 20,
   message: 'Too many applications from this IP, please try again later.',
 });
 
 app.use('/api/', limiter);
 
 // ============================================
-// BODY PARSER MIDDLEWARE
+// BODY PARSER
 // ============================================
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
@@ -75,7 +78,7 @@ app.use((req, res, next) => {
 });
 
 // ============================================
-// HEALTH CHECK ENDPOINT
+// HEALTH CHECK
 // ============================================
 app.get('/api/health', (req, res) => {
   res.json({
@@ -119,12 +122,12 @@ app.use((req, res) => {
 });
 
 // ============================================
-// ERROR HANDLER (Must be last)
+// ERROR HANDLER
 // ============================================
 app.use(errorHandler);
 
 // ============================================
-// DATABASE CONNECTION & SERVER START
+// DATABASE & SERVER START
 // ============================================
 const PORT = process.env.PORT || 5000;
 
@@ -150,6 +153,8 @@ const startServer = async () => {
     process.exit(1);
   }
 };
+
+// ✅ Verify email service before starting
 await verifyEmailService();
 console.log("EMAIL_USER:", process.env.EMAIL_USER);
 console.log("EMAIL_PASSWORD:", process.env.EMAIL_PASSWORD);
