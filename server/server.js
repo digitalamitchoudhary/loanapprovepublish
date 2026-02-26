@@ -30,8 +30,8 @@ app.use(
 process.env.CLIENT_URL || 'http://localhost:3000',
     "https://loanapprovepublish.vercel.app",
   ],
-    credentials: true,
-    optionsSuccessStatus: 200,
+methods: ["GET", "POST", "PUT", "DELETE","OPTIONS"],
+    credentials: true,    optionsSuccessStatus: 200,
   })
 );
 
