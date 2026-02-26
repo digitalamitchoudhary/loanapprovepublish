@@ -1,0 +1,64 @@
+/* Professional Button Styles */
+.btn-primary {
+  padding: 0.875rem 2rem;
+  background-color: #1D4ED8;
+  color: white;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.2s;
+  transform: scale(1);
+}
+
+.btn-primary:hover {
+  background-color: #2563EB;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.btn-secondary {
+  padding: 0.875rem 2rem;
+  border: 2px solid #0F172A;
+  color: #0F172A;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(15, 23, 42, 0.05);
+}
+
+/* Card Styles */
+.card-base {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid #F3F4F6;
+  transition: all 0.3s;
+}
+
+.card-base:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-color: #1D4ED8;
+}
+
+.card-hover {
+  transition: all 0.3s;
+}
+
+.card-hover:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+  border-color: #1D4ED8;
+}
+
+/* Professional Gradients */
+.gradient-primary {
+  background: linear-gradient(135deg, #0F172A 0%, #1D4ED8 100%);
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+}
