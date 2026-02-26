@@ -80,9 +80,9 @@ export default function Navigation() {
               <Link to="/contact" onClick={() => setIsOpen(false)} className="text-brand-text-primary font-medium hover:text-brand-primary transition-colors">
                 Contact
               </Link>
-              {/* <Link to="/admin" onClick={() => setIsOpen(false)} className="text-brand-text-primary font-medium hover:text-brand-primary transition-colors">
+              <Link to="/admin" onClick={() => setIsOpen(false)} className="text-brand-text-primary font-medium hover:text-brand-primary transition-colors">
                 Admin
-              </Link> */}
+              </Link>
               <Link to="/apply" onClick={() => setIsOpen(false)} className="bg-brand-secondary text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-secondary-dark text-center transition-all">
                 Apply Now
               </Link>

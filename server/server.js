@@ -31,6 +31,10 @@ app.use(
   })
 );
 
+// ✅ VERY IMPORTANT (Vercel fix)
+app.set("trust proxy", 1);
+
+
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 15 minutes
